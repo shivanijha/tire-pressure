@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "605018799713",
+    "firebase_url": "https://fir-f133b.firebaseio.com",
+    "project_id": "fir-f133b",
+    "storage_bucket": "fir-f133b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605018799713:android:0e662ad0a064ae5f",
+        "android_client_info": {
+          "package_name": "tirepressure.pong.shivani.com.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605018799713-013s76aqnjvt1j7s5jku9aim8h0b26vv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDYRdxdHl0YIWGFkQ8_CJfYxz99SM-kUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605018799713-013s76aqnjvt1j7s5jku9aim8h0b26vv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
