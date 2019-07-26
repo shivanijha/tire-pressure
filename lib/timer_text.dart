@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:math';
 
 class ElapsedTime {
   final int hundreds;
@@ -30,10 +31,24 @@ class TimerPage extends StatefulWidget {
 class TimerPageState extends State<TimerPage> {
   final Dependencies dependencies = new Dependencies();
 
+  var txt = TextEditingController(text: "80 PSI");
+  List<Color> _colors = [
+    Colors.red,
+    Colors.green
+  ];
+  int index = 1;
   void rightButtonPressed() {
     setState(() {
       if (dependencies.stopwatch.isRunning) {
         dependencies.stopwatch.stop();
+        int rand = generateRandomNumber();
+        txt.text = "$rand PSI";
+        if(rand > 100) {
+          index = 0;
+        } else {
+          index = 1;
+        }
+
       } else {
         dependencies.stopwatch.start();
       }
@@ -41,9 +56,11 @@ class TimerPageState extends State<TimerPage> {
   }
 
   Widget buildFloatingButton(String text, VoidCallback callback) {
-    TextStyle roundTextStyle = const TextStyle(fontSize: 18.0, color: Colors.white);
+    TextStyle roundTextStyle = const TextStyle(fontSize: 18.0, color: Colors.black,);
     return new FloatingActionButton(
-        child: new Text(text, style: roundTextStyle),
+      elevation: 20,
+        child:
+        new Text(text, style: roundTextStyle),
         onPressed: callback);
   }
 
@@ -51,8 +68,10 @@ class TimerPageState extends State<TimerPage> {
   Widget build(BuildContext context) {
     return new Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+
       children: <Widget>[
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: Card(
@@ -66,60 +85,33 @@ class TimerPageState extends State<TimerPage> {
                 color: Colors.white,
                 elevation: 20.0,
                 child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: new Row(
+
+                    padding: const EdgeInsets.all(24.0),
+                    child: new Column(
+
                         children: <Widget>[
-                          new Card(
-                            child: new Container(
-                              padding: new EdgeInsets.all(4.0),
-                              child: new Column(
-                                children: <Widget>[
                                   Text(
-                                    'Front Wheel Pressure',
+                                    'Wheel Pressure',
                                     style: TextStyle(
-                                      fontSize: 18.0,
+                                      fontSize: 24.0,
                                         fontFamily: "Bebas Neue",
                                         fontStyle: FontStyle.normal,
-                                      color: Colors.orange,
+                                        color: Colors.orange,
+                                        fontWeight: FontWeight.bold
                                     ),
                                   ),
-                                  Text(
-                                    '80 PSI',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontFamily: "Bebas Neue",
-                                    ),
-                                  ),
-                                ],
-                              ),
+                          TextField(
+                            readOnly: true,
+                            textAlign: TextAlign.center,
+                            controller: txt,
+                            decoration: new InputDecoration.collapsed(
                             ),
+                            style: new TextStyle(color: _colors[index],fontWeight: FontWeight.bold),
                           ),
-                          new Card(
-                            child: new Container(
-                              padding: new EdgeInsets.all(4.0),
-                              child: new Column(
-                                children: <Widget>[
-                                  Text(
-                                    'Back Wheel Pressure',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontFamily: "Bebas Neue",
-                                      fontStyle: FontStyle.normal,
-                                      color: Colors.orange,
-                                    ),
-                                  ),
-                                  Text(
-                                    '90 PSI',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontFamily: "Bebas Neue",
-                                    ),
-                                  ),
+
                                 ],
-                              ),
-                            ),
-                          )
-                        ]
+
+
                     )
                 ),
               ),
@@ -128,21 +120,43 @@ class TimerPageState extends State<TimerPage> {
         ),
         new Expanded(
           child: new TimerText(dependencies: dependencies),
+
         ),
+
         new Expanded(
           flex: 0,
+          
           child: new Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            
+            padding: const EdgeInsets.all(32.0),
+
             child: new Row(
+
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                buildFloatingButton(dependencies.stopwatch.isRunning ? "stop" : "start", rightButtonPressed),
+
+                buildFloatingButton(dependencies.stopwatch.isRunning ? "Stop" : "Start", rightButtonPressed),
+
               ],
             ),
           ),
         ),
       ],
     );
+  }
+
+  int generateRandomNumber() {
+
+
+    final _random = new Random();
+
+    /**
+     * Generates a positive random integer uniformly distributed on the range
+     * from [min], inclusive, to [max], exclusive.
+     */
+    int min = 70;
+    int max = 130;
+    return min + _random.nextInt(max - min);
   }
 }
 
